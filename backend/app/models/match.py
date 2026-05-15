@@ -7,6 +7,8 @@ from typing import TYPE_CHECKING, List, Optional
 from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.core.config import ACTIVE_SEASON
+
 from .base import Base, TimestampMixin, new_uuid
 
 if TYPE_CHECKING:
@@ -36,6 +38,9 @@ class Match(Base, TimestampMixin):
     away_team_id: Mapped[str] = mapped_column(
         String(36), ForeignKey("teams.id", ondelete="RESTRICT"), nullable=False
     )
+    season: Mapped[str] = mapped_column(
+        String(20), nullable=False, default=ACTIVE_SEASON, server_default=ACTIVE_SEASON
+    )
     played_at: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
@@ -60,4 +65,4 @@ class Match(Base, TimestampMixin):
     )
 
     def __repr__(self) -> str:
-        return f"<Match {self.home_team_id} vs {self.away_team_id} ({self.status})>"
+        return f"<Match {self.home_team_id} vs {self.away_team_id} [{self.season}] ({self.status})>"

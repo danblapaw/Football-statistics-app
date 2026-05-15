@@ -3,6 +3,7 @@ from typing import Annotated, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
+from app.core.config import ACTIVE_SEASON
 from app.database.dependencies import get_db
 from app.schemas.common import PaginatedResponse
 from app.schemas.team import TeamRead
@@ -19,8 +20,11 @@ def list_teams(
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=25, ge=1, le=100),
     league_id: Optional[str] = Query(default=None),
+    season: Optional[str] = Query(default=ACTIVE_SEASON),
 ):
-    teams, total = team_service.get_teams(db, skip=skip, limit=limit, league_id=league_id)
+    teams, total = team_service.get_teams(
+        db, skip=skip, limit=limit, league_id=league_id, season=season
+    )
     return PaginatedResponse(data=teams, total=total, skip=skip, limit=limit)
 
 

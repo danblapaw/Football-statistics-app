@@ -2,6 +2,8 @@
 
 Base URL: `/api`
 
+**MVP scope: season 2025-2026 only.** All list endpoints default to `?season=2025-2026`.
+
 All list endpoints support pagination via `?skip=0&limit=25`.
 
 ---
@@ -31,47 +33,55 @@ Returns the resource object directly.
 ## Endpoints
 
 ### Health
-| Method | Path      | Status | Description          |
-|--------|-----------|--------|----------------------|
-| GET    | /health   | ✅ Done | Service health check |
+| Method | Path    | Status  | Description          |
+|--------|---------|---------|----------------------|
+| GET    | /health | ✅ Done | Service health check |
 
 ---
 
 ### Leagues — `/api/leagues`
-| Method | Path                  | Status | Query params         | Description          |
-|--------|-----------------------|--------|----------------------|----------------------|
-| GET    | /api/leagues          | ✅ Done | `skip`, `limit`      | List all leagues     |
-| GET    | /api/leagues/{id}     | ✅ Done |                      | Get league by ID     |
-| GET    | /api/leagues/{id}/teams   | 🔜 Planned |              | Teams in a league    |
-| GET    | /api/leagues/{id}/matches | 🔜 Planned |              | Matches in a league  |
+| Method | Path              | Status     | Query params                        |
+|--------|-------------------|------------|-------------------------------------|
+| GET    | /api/leagues      | ✅ Done    | `skip`, `limit`, `season`           |
+| GET    | /api/leagues/{id} | ✅ Done    |                                     |
+| GET    | /api/leagues/{id}/teams   | 🔜 Planned |                           |
+| GET    | /api/leagues/{id}/matches | 🔜 Planned |                           |
 
 ---
 
 ### Teams — `/api/teams`
-| Method | Path                  | Status | Query params                   | Description          |
-|--------|-----------------------|--------|--------------------------------|----------------------|
-| GET    | /api/teams            | ✅ Done | `skip`, `limit`, `league_id`   | List teams           |
-| GET    | /api/teams/{id}       | ✅ Done |                                | Get team by ID       |
-| GET    | /api/teams/{id}/players   | 🔜 Planned |                        | Squad list           |
-| GET    | /api/teams/{id}/stats     | 🔜 Planned |                        | Team season stats    |
+| Method | Path            | Status     | Query params                          |
+|--------|-----------------|------------|---------------------------------------|
+| GET    | /api/teams      | ✅ Done    | `skip`, `limit`, `league_id`, `season`|
+| GET    | /api/teams/{id} | ✅ Done    |                                       |
+| GET    | /api/teams/{id}/players | 🔜 Planned |                               |
+| GET    | /api/teams/{id}/stats   | 🔜 Planned |                               |
 
 ---
 
 ### Players — `/api/players`
-| Method | Path                  | Status | Query params                  | Description          |
-|--------|-----------------------|--------|-------------------------------|----------------------|
-| GET    | /api/players          | ✅ Done | `skip`, `limit`, `team_id`    | List players         |
-| GET    | /api/players/{id}     | ✅ Done |                               | Get player by ID     |
-| GET    | /api/players/{id}/stats   | 🔜 Planned |                       | Career / season stats|
+| Method | Path              | Status     | Query params                         |
+|--------|-------------------|------------|--------------------------------------|
+| GET    | /api/players      | ✅ Done    | `skip`, `limit`, `team_id`, `season` |
+| GET    | /api/players/{id} | ✅ Done    |                                      |
+| GET    | /api/players/{id}/stats | 🔜 Planned |                              |
 
 ---
 
 ### Matches — `/api/matches`
-| Method | Path                  | Status | Query params                             | Description          |
-|--------|-----------------------|--------|------------------------------------------|----------------------|
-| GET    | /api/matches          | ✅ Done | `skip`, `limit`, `league_id`, `status`   | List matches         |
-| GET    | /api/matches/{id}     | ✅ Done |                                          | Get match by ID      |
-| GET    | /api/matches/{id}/stats   | 🔜 Planned |                                  | Per-player stats     |
+| Method | Path              | Status     | Query params                                      |
+|--------|-------------------|------------|---------------------------------------------------|
+| GET    | /api/matches      | ✅ Done    | `skip`, `limit`, `league_id`, `season`, `status`  |
+| GET    | /api/matches/{id} | ✅ Done    |                                                   |
+| GET    | /api/matches/{id}/stats | 🔜 Planned |                                           |
+
+---
+
+## Season filter
+
+The `season` query param is available on all list endpoints. Default value: `2025-2026`.
+
+Pass `season=` (empty) to query across all seasons.
 
 ---
 

@@ -9,6 +9,7 @@ def get_matches(
     skip: int = 0,
     limit: int = 25,
     league_id: str | None = None,
+    season: str | None = None,
     status: MatchStatus | None = None,
 ) -> tuple[list[Match], int]:
     query = select(Match)
@@ -16,6 +17,9 @@ def get_matches(
     if league_id:
         query = query.where(Match.league_id == league_id)
         count_query = count_query.where(Match.league_id == league_id)
+    if season:
+        query = query.where(Match.season == season)
+        count_query = count_query.where(Match.season == season)
     if status:
         query = query.where(Match.status == status)
         count_query = count_query.where(Match.status == status)

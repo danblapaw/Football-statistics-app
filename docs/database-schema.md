@@ -1,5 +1,8 @@
 # Database Schema
 
+**MVP scope: season `2025-2026` only.**
+`ACTIVE_SEASON = "2025-2026"` is the single source of truth in `backend/app/core/config.py`.
+
 All tables use `String(36)` UUIDs as primary keys generated at application level.
 Timestamps (`created_at`, `updated_at`) are managed via `TimestampMixin` using `server_default=func.now()`.
 
@@ -84,6 +87,7 @@ Timestamps (`created_at`, `updated_at`) are managed via `TimestampMixin` using `
 | home_score    | Integer             | nullable                  | null until match ends      |
 | away_score    | Integer             | nullable                  |                            |
 | matchday      | Integer             | nullable                  | round number in season     |
+| season        | String(20)          | NOT NULL                  | default: "2025-2026"       |
 | created_at    | DateTime(tz)        | NOT NULL                  |                            |
 | updated_at    | DateTime(tz)        | NOT NULL                  |                            |
 
@@ -95,6 +99,7 @@ Timestamps (`created_at`, `updated_at`) are managed via `TimestampMixin` using `
 | id               | String(36)   | PK                        | UUID                       |
 | player_id        | String(36)   | FK → players.id CASCADE   | NOT NULL                   |
 | match_id         | String(36)   | FK → matches.id CASCADE   | NOT NULL                   |
+| season           | String(20)   | NOT NULL                  | default: "2025-2026"       |
 | minutes_played   | Integer      | nullable                  |                            |
 | started          | Boolean      | NOT NULL                  | default: false             |
 | goals            | Integer      | NOT NULL                  | default: 0                 |

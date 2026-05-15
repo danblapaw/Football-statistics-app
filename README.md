@@ -2,6 +2,8 @@
 
 A professional platform for football (soccer) statistics, analytics, and insights.
 
+> **MVP scope:** Season **2025-2026** only. No historical data is loaded. The active season is controlled by `ACTIVE_SEASON` in `backend/app/core/config.py`.
+
 ---
 
 ## Vision
@@ -140,14 +142,14 @@ All endpoints are prefixed with `/api`. Interactive docs at `/docs`.
 
 | Method | Path                   | Query params                             |
 |--------|------------------------|------------------------------------------|
-| GET    | /api/leagues           | `skip`, `limit`                          |
-| GET    | /api/leagues/{id}      |                                          |
-| GET    | /api/teams             | `skip`, `limit`, `league_id`             |
-| GET    | /api/teams/{id}        |                                          |
-| GET    | /api/players           | `skip`, `limit`, `team_id`               |
-| GET    | /api/players/{id}      |                                          |
-| GET    | /api/matches           | `skip`, `limit`, `league_id`, `status`   |
-| GET    | /api/matches/{id}      |                                          |
+| GET    | /api/leagues           | `skip`, `limit`, `season`                        |
+| GET    | /api/leagues/{id}      |                                                   |
+| GET    | /api/teams             | `skip`, `limit`, `league_id`, `season`            |
+| GET    | /api/teams/{id}        |                                                   |
+| GET    | /api/players           | `skip`, `limit`, `team_id`, `season`              |
+| GET    | /api/players/{id}      |                                                   |
+| GET    | /api/matches           | `skip`, `limit`, `league_id`, `season`, `status` |
+| GET    | /api/matches/{id}      |                                                   |
 
 See [`docs/api-plan.md`](docs/api-plan.md) for the full plan.
 

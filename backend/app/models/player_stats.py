@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.core.config import ACTIVE_SEASON
+
 from .base import Base, TimestampMixin, new_uuid
 
 if TYPE_CHECKING:
@@ -21,6 +23,9 @@ class PlayerStats(Base, TimestampMixin):
     )
     match_id: Mapped[str] = mapped_column(
         String(36), ForeignKey("matches.id", ondelete="CASCADE"), nullable=False
+    )
+    season: Mapped[str] = mapped_column(
+        String(20), nullable=False, default=ACTIVE_SEASON, server_default=ACTIVE_SEASON
     )
 
     # Participation
@@ -56,4 +61,4 @@ class PlayerStats(Base, TimestampMixin):
     match: Mapped["Match"] = relationship("Match", back_populates="player_stats")
 
     def __repr__(self) -> str:
-        return f"<PlayerStats player={self.player_id} match={self.match_id}>"
+        return f"<PlayerStats player={self.player_id} match={self.match_id} [{self.season}]>"

@@ -2,10 +2,13 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
+from app.core.config import ACTIVE_SEASON
+
 
 class PlayerStatsBase(BaseModel):
     player_id: str
     match_id: str
+    season: str = ACTIVE_SEASON
     minutes_played: Optional[int] = None
     started: bool = False
     goals: int = 0

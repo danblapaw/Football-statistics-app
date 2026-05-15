@@ -4,9 +4,19 @@ from sqlalchemy.orm import Session
 from app.models.league import League
 
 
-def get_leagues(db: Session, skip: int = 0, limit: int = 25) -> tuple[list[League], int]:
-    total = db.execute(select(func.count()).select_from(League)).scalar_one()
-    rows = db.execute(select(League).offset(skip).limit(limit)).scalars().all()
+def get_leagues(
+    db: Session,
+    skip: int = 0,
+    limit: int = 25,
+    season: str | None = None,
+) -> tuple[list[League], int]:
+    query = select(League)
+    count_query = select(func.count()).select_from(League)
+    if season:
+        query = query.where(League.season == season)
+        count_query = count_query.where(League.season == season)
+    total = db.execute(count_query).scalar_one()
+    rows = db.execute(query.offset(skip).limit(limit)).scalars().all()
     return list(rows), total
 
 
