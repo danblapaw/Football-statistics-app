@@ -40,6 +40,10 @@ football-statistics-app/
 │   ├── alembic.ini
 │   ├── requirements.txt
 │   └── .env.example
+│   └── app/
+│       ├── api/               # Route handlers (leagues, teams, players, matches)
+│       ├── schemas/           # Pydantic request/response schemas
+│       ├── services/          # Business logic (DB queries)
 │
 ├── apps/
 │   └── mobile/                # Expo React Native app (Phase 4)
@@ -62,6 +66,7 @@ football-statistics-app/
 | Phase | Focus                              | Status      |
 |-------|------------------------------------|-------------|
 | 1     | Project foundation & structure     | Done        |
+| 1.5   | Schemas, REST endpoints & services | Done        |
 | 2     | Data pipeline & ETL                | Planned     |
 | 3     | Statistics engine & REST API       | Planned     |
 | 4     | Expo mobile app                    | Planned     |
@@ -126,6 +131,25 @@ alembic revision --autogenerate -m "describe your change"
 ```
 
 > **Note:** `DATABASE_URL` must be set in `backend/.env` before running any Alembic command.
+
+---
+
+## REST API Endpoints
+
+All endpoints are prefixed with `/api`. Interactive docs at `/docs`.
+
+| Method | Path                   | Query params                             |
+|--------|------------------------|------------------------------------------|
+| GET    | /api/leagues           | `skip`, `limit`                          |
+| GET    | /api/leagues/{id}      |                                          |
+| GET    | /api/teams             | `skip`, `limit`, `league_id`             |
+| GET    | /api/teams/{id}        |                                          |
+| GET    | /api/players           | `skip`, `limit`, `team_id`               |
+| GET    | /api/players/{id}      |                                          |
+| GET    | /api/matches           | `skip`, `limit`, `league_id`, `status`   |
+| GET    | /api/matches/{id}      |                                          |
+
+See [`docs/api-plan.md`](docs/api-plan.md) for the full plan.
 
 ---
 

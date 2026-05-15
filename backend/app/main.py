@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api import leagues, matches, players, teams
+
 app = FastAPI(
     title="Football Statistics API",
     description="Professional football statistics and analytics platform",
@@ -14,6 +16,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+API_PREFIX = "/api"
+app.include_router(leagues.router, prefix=API_PREFIX)
+app.include_router(teams.router, prefix=API_PREFIX)
+app.include_router(players.router, prefix=API_PREFIX)
+app.include_router(matches.router, prefix=API_PREFIX)
 
 
 @app.get("/")
